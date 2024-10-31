@@ -19,6 +19,7 @@ export default function PaginationControls({ hasNextPage, hasPrevPage, count }: 
   return (
     <div>
         <button
+            disabled={!hasPrevPage}
             onClick={() => {
                 router.push(`/?page=${Number(page) - 1}&per_page=${per_page}`)
             }}
@@ -27,6 +28,7 @@ export default function PaginationControls({ hasNextPage, hasPrevPage, count }: 
             {page} / {Math.ceil(count / Number(per_page))}
         </div>
         <button
+            disabled={!hasNextPage}
             onClick={() => {
                 router.push(`/?page=${Number(page) + 1}&per_page=${per_page}`)
             }}
