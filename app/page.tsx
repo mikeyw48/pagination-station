@@ -1,6 +1,12 @@
 import PaginationControls from "@/components/pagination"
 
-export default function Home({searchParams}: {searchParams: { [key:string]: string | string[] | undefined }}) {
+export default async function Home({searchParams}: {searchParams: { [key:string]: string | string[] | undefined }}) {
+
+  const params = await searchParams; 
+
+  // Now, safely access page and per_page
+  const page = (Array.isArray(params['page']) ? params['page'][0] : params['page']) ?? '1';
+  const per_page = (Array.isArray(params['per_page']) ? params['per_page'][0] : params['per_page']) ?? '5';
 
   const data = [
     "entry 1",
@@ -18,11 +24,34 @@ export default function Home({searchParams}: {searchParams: { [key:string]: stri
     "entry 13",
     "entry 14",
     "entry 15",
-    "entry 16",
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+    `entry ${Math.random()}`,
+
   ]
 
-  const page = searchParams['page'] ?? '1'
-  const per_page = searchParams['per_page'] ?? '5'
 
   const start = (Number(page) - 1) * Number(per_page)
   const end = start + Number(per_page)
@@ -38,7 +67,11 @@ export default function Home({searchParams}: {searchParams: { [key:string]: stri
       {entries.map((entry) => (
         <p key={entry}>{entry}</p>
       ))}
-      <PaginationControls count={count} />
+      <PaginationControls
+        count={count} 
+        hasNextPage={end < data.length} 
+        hasPrevPage={start > 0} 
+      />
     </div>
   );
 }
